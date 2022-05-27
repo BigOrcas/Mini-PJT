@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HeartMapper">
+ 	
+ 	
+	<resultMap id="heartSelectMap" type="heart">
+		<result property="heartNo" 				column="heart_no" 				jdbcType="NUMERIC"/>
+		<result property="prodNo"	   			column="prod_no" 				jdbcType="NUMERIC" />		
+		<result property="userId" 			column="user_id" 		jdbcType="VARCHAR" />
+		<result property="heartcheck" 			column="heart_check" 		jdbcType="NUMERIC" />
+		
+		
+		
+	</resultMap>
+	
+<update id="updateHeart" parameterType="int">
+update product
+<set> 
+heart_hit = heart_hit +1
+</set>
+where prod_no = #{prodNo}
+</update>
+
+<!-- 게시글 추천수취소 -->
+<update id="updateHeartCancel" parameterType="int">
+update product
+<set> 
+heart_hit = heart_hit -1
+</set>
+where prod_no = #{prodNo}
+</update>
+
+<!-- 게시글 추천 시 Like 테이블에 insert -->
+<insert id="insertHeart">
+insert into heart(heart_no , prod_no , user_id) 
+values(seq_heart_heart_no.nextval,#{prodNo} ,#{userId})
+</insert>
+
+<!-- 게시글 추천취소 시 delete -->
+<delete id="deleteHeart">
+delete from heart
+ where prod_no = #{prodNo} and user_id = #{userId}
+</delete>
+
+<!-- 게시글 추천 시 Check를 1로 만들어서 중복방지-->
+<update id="updateHeartCheck">
+update heart
+<set>  
+heart_check = 1
+</set>
+where prod_no = #{prodNo} and user_id = #{userId}
+</update>
+
+<!-- 게시글 추천취소 시 다시 0  -->
+<update id="updateHeartCheckCancel">
+update heart
+<set>
+heart_check = 0
+</set>
+where prod_no = #{prodNo} and user_id = #{userId}
+</update>
+
+<!-- 게시글 추천 중복방지 select문 -->
+<select id="heartCheck" resultType="int">
+select count(*) from heart
+ where prod_no = #{prodNo} and user_id = #{userId} 
+</select>
+
+	
+	
+	
+<!-- 
+<update id="updateHeart" parameterType="int">
+update product set 
+heart_hit = heart_hit+1
+where prod_no = #{prodNo}
+</update>
+
+<update id="updateHeartCancel" parameterType="int">
+update product set 
+heart_hit = heart_hit-1
+where prod_no = #{prodNo}
+</update>
+
+<insert id="addHeart">
+insert into product(heart_no , prod_no , user_id) 
+values((SELECT NVL(MAX(heartNo), 0) + 1 FROM heart) ,#{prodNo} ,#{userId})
+</insert>
+
+<delete id="deleteHeart">
+delete from heart where prod_no = #{prodNo} and user_id = #{userId}
+</delete>
+
+<update id="updateHeartCheck">
+update heart set HEARTCHECK = 1
+where prod_no = #{prodNo} and user_id = #{userId}
+</update>
+
+<update id="updateHeartCheckCancel">
+update heart set HEARTCHECK = 0
+where prod_no = #{prodNo} and user_id = #{userId}
+</update>
+
+<select id="heartCheck" resultType="int">
+select count(*) from heart where prod_no = #{prodNo} and user_id = #{userId} 
+</select>
+-->
+
+
+
+
+
+
+
+	
+	
+	
+	<!-- SQL : INSERT 
+	<insert 	id="addHeart"		parameterType="heart" >
+		INSERT 
+	 	INTO heart(heart_no, prod_no,user_Id) 
+	 	values (seq_heart_heart_no.nextval, #{prodNo},#{userId})
+	 </insert>
+	 
+	 <update id="updateHeart" parameterType="heart">
+		update heart
+		 <set>
+		  heart_no=heart_no+1 
+		 </set>
+		where prod_no=#{prodNo}
+	</update>
+	-->
+	 
+	 <!-- SQL : SELECT 
+	 <select 	id="getHeart"	parameterType="string"	resultMap="heartSelectMap">
+		SELECT p.prod_name, h.*
+		FROM product p, heart h 
+		WHERE p.prod_no=h.prod_no 
+		AND user_id = #{userId}
+		ORDER BY heart_no DESC
+	 </select>
+	 -->
+	 
+	 <!-- SQL : UPDATE Stock 
+	 <update	id="updateHeart"	parameterType="map" >
+	   		UPDATE heart
+	   	<set>
+	   		heart = #{heartNum}
+	   	</set>
+	   		WHERE heart_no = #{heartNo}
+	 </update>
+	 -->
+	 
+	 <!-- SQL : DELETE 
+	 <delete	id="deleteHeart"	parameterType="int" >
+	   	DELETE
+	   	FROM heart
+	   	WHERE heart_no = #{heartNo}
+	 </delete>
+	 -->
+	 
+</mapper>
