@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation=
+				"http://www.springframework.org/schema/beans 
+				 http://www.springframework.org/schema/beans/spring-beans.xsd
+				 http://www.springframework.org/schema/tx 
+				 http://www.springframework.org/schema/tx/spring-tx.xsd
+				 http://www.springframework.org/schema/aop 
+				 http://www.springframework.org/schema/aop/spring-aop.xsd">
+				 
+	<!-- PropertyPlaceholderConfigurer 로 로드된 resource 는 ${  } 로 접근 가능 -->
+	<bean	id="propertyConfigurer"
+				class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:config/jdbc.properties" />
+	</bean>
+
+	<!-- DBCP (Apache Commons Database Connection) 사용 -->
+	<bean id="dataSource"	
+				class="org.apache.commons.dbcp.BasicDataSource" >
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+	</bean>				 
+												 
+	
+	<!-- TransactioManager instance 생성 
+	
+	
+	
+	-->
+	<bean id="transactionManager" 
+				class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+		<property name="dataSource" ref="dataSource"/>
+	</bean>	
+	
+	<!-- Transaction Advice 생성
+	
+	 Transaction은 여러 작업을 진행하다가 문제가 생겼을 경우 이전 상태로 롤백하기 위해 사용되는 것이 트랜잭션
+	 spring에서는 트랜잭션이 aop를 통해 지원한다
+	 transaction은 tx로, AOP는 aop로 등록하여 사용한다.
+	 
+	 
+			:: method : transaction 적용 Method
+			:: propagation : transaction 전파규칙(default가 REQUIRED 이므로 꼭 안써줘도된다) 
+			REQUIRED를 사용하여 있으면 기존의 것을 가져오고 없으면 새로 만들어서 사용한다
+			:: read-only : 트랜잭션이 읽기만가능 (선택)
+			get 메소드들은 데이터 베이스에 변화를 주지 않기 때문에 commit과 rollback을 할 필요가 없을 것이다.
+			 때문에 read-only="true"를 놓아서 데이터 베이스를 읽어오기만 한다. 
+			
+			-->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- get 으로 시작된는 Method에 적용 transaction 규칙 -->				
+			<tx:method 	name="get*" 			propagation="REQUIRED"	read-only="true" />
+			<!-- add 으로 시작된는 Method에 적용 transaction 규칙 -->		
+			<tx:method	name="add*"	 		propagation="REQUIRED"/>
+			<tx:method	name="update*"	propagation="REQUIRED"/>
+			<!--모든 Method에 적용 transaction 규칙 -->		
+			<!-- <tx:method	name="*"	 />-->	
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- AOP : pointcut / advisor 설정 
+	 transaction Advice를 적용할 메서드들을 정의한다.
+	  트랜잭션은 Service의 최종단계에서 적용한다고 했으니 execution 안 기준에 ServiceImpl을 적용했다
+	 -->
+	<aop:config>
+		<aop:pointcut 	id="requiredTx"
+									expression="execution(* com.model2.mvc.service..*ServiceImpl.*(..) )" />
+		<aop:advisor 	advice-ref="txAdvice"  pointcut-ref="requiredTx"  />
+	</aop:config>
+
+</beans>

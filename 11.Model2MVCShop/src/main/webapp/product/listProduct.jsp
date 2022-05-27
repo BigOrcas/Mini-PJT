@@ -150,7 +150,7 @@ div.thumbnail {
 			
 			
 			 
-			$( "button.like_btn" ).on("click" , function(){
+			$( "p.like_btn" ).on("click" , function(){
 				var prodNo = $(this).attr("value");
 				var userId = $("input[name='userId']").val();
 				
@@ -437,9 +437,10 @@ div.thumbnail {
         <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo}" class="btn btn-default" role="button">상세정보</a> 
         
         <a class="btn btn-default" disabled="disabled" role="button">구매</a>
-                    <p align="right" class="bi bi-heart">${product.hearthit}</p>
+                    <p align="right" class="bi bi-heart like_btn"  id="like_btn">${product.hearthit}</p>
                     	 <button class="btn btn-warning like_btn" id="like_btn" >추천 ${product.hearthit}</button>
     <!-- onclick="updateHeart(); return false;" -->
+    
     <script>
     var i = 0;
     $('.bi-heart').on('click',function(){
@@ -464,11 +465,11 @@ div.thumbnail {
         <c:otherwise>
         <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button">상세정보</a> 
         <a href="/purchase/addPurchase?menu=search&&prodNo=${product.prodNo }" class="btn btn-default" role="button">구매</a> 
-         <p align="right" class="bi bi-heart">${product.hearthit}</p>
-                    	 <p><button type="button" class="btn btn-warning like_btn" value="${product.prodNo}" >추천 ${product.hearthit}</button></p>
+         <p align="right" class="bi bi-heart like_btn" value="${product.prodNo}">        ${product.hearthit}</p>
+                    	
         
         
-            <p align="right" class="bi bi-heart">좋아요 </p>
+          
            
     
     <script>
