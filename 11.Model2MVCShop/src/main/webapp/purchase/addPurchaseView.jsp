@@ -76,6 +76,21 @@ function fncAddPurchase() {
 	
 	$("form").attr("method" , "POST").attr("action" , "/purchase/addPurchase").submit();	
 }
+function fncAddWish() {
+	
+	var stock=$("#stock").val();
+	var buy=$("input[name='buy']").val();
+	console.log(stock);
+	console.log(buy);
+	if (stock < buy) {
+		alert("장바구니 담기가능 개수가 초과되었습니다");
+		return;
+	}
+	
+	
+	$("form").attr("method" , "POST").attr("action" , "/wish/addWish").submit();
+	
+}
 
 $(function() {
 	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -83,6 +98,16 @@ $(function() {
 		fncAddPurchase();
 	});
 });	
+
+
+
+$(function() {
+	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	$( "button.btn.btn-primary" ).on("click" , function() {
+		console.log('장바구니');
+		fncAddWish();
+	});
+});
 
 $(function() {
 	$('#divyDate').datepicker({

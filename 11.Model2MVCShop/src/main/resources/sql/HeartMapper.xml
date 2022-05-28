@@ -11,7 +11,7 @@
 		<result property="heartNo" 				column="heart_no" 				jdbcType="NUMERIC"/>
 		<result property="prodNo"	   			column="prod_no" 				jdbcType="NUMERIC" />		
 		<result property="userId" 			column="user_id" 		jdbcType="VARCHAR" />
-		<result property="heartcheck" 			column="heart_check" 		jdbcType="NUMERIC" />
+		<result property="heartCheck" 			column="heart_check" 		jdbcType="NUMERIC" />
 		
 		
 		

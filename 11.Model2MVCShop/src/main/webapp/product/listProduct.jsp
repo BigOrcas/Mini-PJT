@@ -168,10 +168,16 @@ div.thumbnail {
 			                
 			                    if(heartCheck == 0){
 			                    	alert("추천완료.");
+			                    	  $(this).removeClass('bi bi-heart like_btn');
+			                          $(this).addClass('bi-heart-fill like_btn');
+			                          heartCheck++;
 			                    	location.reload();
 			                    }
 			                    else if (heartCheck == 1){
 			                     alert("추천취소");
+			                     $(this).removeClass('bi-heart-fill like_btn');
+			                     $(this).addClass('bi bi-heart like_btn');
+			                     heartCheck--;
 			                    	location.reload();
 
 			                    
@@ -408,17 +414,26 @@ div.thumbnail {
 <c:if test="${param.menu=='search'}">
 <c:forEach var="product" items="${list}">
   <input type="hidden" name="userId" value="${user.userId}">
+  <input type="hidden" name="heartCheck" value="${heart.heartCheck}">
  <div class="col-sm-6 col-md-4">
  <br/> <br/>
     <div class="thumbnail">
     				<c:choose>
     
-    	<c:when test="${(product.fileName).contains('/')}">
-    		<c:forEach var="name" items="${(product.fileName).split('/')[0]}">
-		<img class="image" src="/images/uploadFiles/${name}" width="200" height="200" ><br/>
-			</c:forEach>
-		
-      </c:when>
+     <c:when test="${product.fileName.contains('/')}">
+					    <c:choose>
+						<c:when test="${product.fileName.contains('mp4')}">
+							<c:forEach var="name" items="${product.fileName.split('/')}">
+						<video width="200" height="200" controls autoplay src="/images/uploadFiles/${name}" type="video/mp4"></video>
+					</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="name" items="${product.fileName.split('/')[0]}">
+								<img src="/images/uploadFiles/${name}" id="image" width="200" height="200">
+							</c:forEach>
+						</c:otherwise>
+						</c:choose>
+				    </c:when>
 		
 		<c:otherwise>
 		
@@ -437,21 +452,22 @@ div.thumbnail {
         <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo}" class="btn btn-default" role="button">상세정보</a> 
         
         <a class="btn btn-default" disabled="disabled" role="button">구매</a>
-                    <p align="right" class="bi bi-heart like_btn"  id="like_btn">${product.hearthit}</p>
+                    <p align="right" class="bi bi-heart-fill like_btn"  id="like_btn">${product.hearthit}</p>
                     	 <button class="btn btn-warning like_btn" id="like_btn" >추천 ${product.hearthit}</button>
     <!-- onclick="updateHeart(); return false;" -->
     
     <script>
-    var i = 0;
+    
+    var heartcheck = $("input[name='heartcheck']").val();
     $('.bi-heart').on('click',function(){
-        if(i==0){
-            $(this).removeClass('bi-heart');
+        if(heartcheck==0){
+            $(this).removeClass('bi-heart ');
             $(this).addClass('bi-heart-fill');
-            i++;
-        }else if(i==1){
+            heartcheck++;
+        }else if(heartcheck==1){
             $(this).removeClass('bi-heart-fill');
             $(this).addClass('bi-heart');
-            i--;
+            heartcheck--;
         }
         
     });
@@ -463,15 +479,32 @@ div.thumbnail {
         </c:when>
         
         <c:otherwise>
+          <input type="hidden" name="heartCheck" value="${heart.heartCheck}">
         <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button">상세정보</a> 
         <a href="/purchase/addPurchase?menu=search&&prodNo=${product.prodNo }" class="btn btn-default" role="button">구매</a> 
-         <p align="right" class="bi bi-heart like_btn" value="${product.prodNo}">        ${product.hearthit}</p>
+         <p align="right" class="bi bi-heart like_btn" value="${product.prodNo}" name="heartCheck">  ${heart.heartCheck}    ${product.hearthit}</p>
                     	
         
+            <script>
+    
+    var heartCheck = $("input[name='heartCheck']").val();
+    $('p.like_btn').on('click',function(){
+        if(heartCheck==0){
+            $(this).removeClass('bi bi-heart like_btn');
+            $(this).addClass('bi-heart-fill');
+            heartCheck++;
+        }else if(heartCheck==1){
+            $(this).removeClass('bi-heart-fill');
+            $(this).addClass('bi bi-heart like_btn');
+            heartCheck--;
+        }
         
+    });
+
+</script>
           
            
-    
+    <!-- 
     <script>
     var i = 0;
     $('.bi-heart').on('click',function(){
@@ -491,7 +524,7 @@ div.thumbnail {
 
 </script>
         
-        
+  -->      
         </c:otherwise>
         </c:choose>
       </div>

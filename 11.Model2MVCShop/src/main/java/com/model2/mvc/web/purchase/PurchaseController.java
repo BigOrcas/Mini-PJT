@@ -64,7 +64,8 @@ public class PurchaseController {
 			//addObject : key와 value를 담아 보낼 수 있는 메서드
 
 
-			modelAndView.setViewName("forward:/purchase/addPurchaseView_KakaoPay.jsp");
+			//modelAndView.setViewName("forward:/purchase/addPurchaseView_KakaoPay.jsp");
+			modelAndView.setViewName("/purchase/addPurchaseView.jsp");
 			return modelAndView;
 		}
 		

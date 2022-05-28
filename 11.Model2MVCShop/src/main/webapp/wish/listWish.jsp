@@ -78,7 +78,12 @@ div.row{
 	
 		
 			 
-			 
+			 $( "button:contains('구매')" ).on("click" , function() {
+				 console.log('구매');
+				 
+				 $("form").attr("method" , "GET").attr("action" , "/purchase/addPurchase").submit();
+				 
+				});
 		
 					
 		
