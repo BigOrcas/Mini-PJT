@@ -17,7 +17,29 @@
 			UserController 에서 Spring EL 의 사용법을 이해 할 것-->
 	<util:properties id="commonProperties" location="classpath:config/common.properties"/>
 		
-	<!-- 	ㅇ 어노테이션 기반 :: Spring Framework 사용. :: sub element 이해 할것 -->				
+	<!-- 	ㅇ 어노테이션 기반 :: Spring Framework 사용. :: sub element 이해 할것 
+	빈으로 등록 될 준비를 마친 클래스들을 스캔하여, 빈으로 등록해주는 것이다.
+	@Controller 를 제외하고 싶다면 위와 같이 exclude-filter를 사용하여
+	org.springframework.stereotype.Controller를 명시해준다.
+	use-default="false"는 기본 어노테이션 @Controller, @Component등을
+	스캔하지 않는다는 것이다.
+	기본 어노테이션을 스캔하지 않는다고 설정하고, include-filter를 통해서
+	위와 같이 특정 어노테이션만 스캔할 수 있다.
+	
+	ConfigurationClassParser 가 Configuration 클래스를 파싱한다.
+@Configuration 어노테이션 클래스를 파싱하는 것이다.
+                   ⬇
+ComponentScan 설정을 파싱한다.
+base-package 에 설정한 패키지를 기준으로
+ComponentScanAnnotationParser가 스캔하기 위한 설정을 파싱한다.
+                   ⬇
+base-package 설정을 바탕으로 모든 클래스를 로딩한다.
+                   ⬇
+ClassLoader가 로딩한 클래스들을 BeanDefinition으로 정의한다.
+생성할 빈의 대한 정의를 하는 것이다.
+                   ⬇
+생성할 빈에 대한 정의를 토대로 빈을 생성한다.
+	-->				
 	<context:component-scan base-package="com.model2.mvc.service">
 		<context:include-filter type="annotation"	expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="annotation"	expression="org.springframework.stereotype.Repository" />

@@ -42,11 +42,11 @@ public class KakaoPayImpl implements KakaoPay{
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "1001");
+        params.add("partner_order_id", "1006");
         params.add("partner_user_id", "gorany");
         params.add("item_name", "갤럭시S9");
         params.add("quantity", "1");
-        params.add("total_amount", "100");
+        params.add("total_amount", "200");
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8080/kakao/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8080/kakao/kakaoPayCancel");
@@ -88,10 +88,10 @@ public class KakaoPayImpl implements KakaoPay{
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReady.getTid());
-        params.add("partner_order_id", "1001");
+        params.add("partner_order_id", "1006");
         params.add("partner_user_id", "gorany");
         params.add("pg_token", pg_token);
-        params.add("total_amount", "100");
+        params.add("total_amount", "200");
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         

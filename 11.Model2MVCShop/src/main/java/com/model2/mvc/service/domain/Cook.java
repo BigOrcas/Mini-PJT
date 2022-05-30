@@ -6,162 +6,130 @@ public class Cook {
 
 	private int cookNo;
 	private String cookName;
-	private String cookFileName;
-	private int cookRecruit;
+	private String cookFilename;
+	private String cookBrief;	
 	private String cookDifficuty;
-	private String cookTheme;
 	private int cookPrice;
-	private String cookBrief;
+	private String cookTheme;
+	private Date aplstarTime;
+	private Date aplendTime;	
+	private int cookRecruit;
 	private Date startTime;
-	private Date endTime;
-	private Date regStartTime;
-	private Date regEndTime;
+	private Date endTime;	
 	private String cookLocation;
-	private String certificate;
-	private String career;
-	private String cookShorts;
-	private String applyStatus;
-
-	public int getCookNo() {
+	private String cookRegdate ;
+	private String cookVideo;
+	private int cookStock  ;
+	
+	
+	public int getcookNo() {
 		return cookNo;
 	}
-
-	public void setCookNo(int cookNo) {
+	public void setcookNo(int cookNo) {
 		this.cookNo = cookNo;
 	}
-
-	public String getCookName() {
+	public String getcookName() {
 		return cookName;
 	}
-
-	public void setCookName(String cookName) {
+	public void setcookName(String cookName) {
 		this.cookName = cookName;
 	}
-
-	public String getCookFileName() {
-		return cookFileName;
+	public String getcookFilename() {
+		return cookFilename;
 	}
-
-	public void setCookFileName(String cookFileName) {
-		this.cookFileName = cookFileName;
+	public void setcookFilename(String cookFilename) {
+		this.cookFilename = cookFilename;
 	}
-
-	public int getCookRecruit() {
+	public int getcookRecruit() {
 		return cookRecruit;
 	}
-
-	public void setCookRecruit(int cookRecruit) {
+	public void setcookRecruit(int cookRecruit) {
 		this.cookRecruit = cookRecruit;
 	}
-
-	public String getCookDifficuty() {
+	public String getcookDifficuty() {
 		return cookDifficuty;
 	}
-
-	public void setCookDifficuty(String cookDifficuty) {
+	public void setcookDifficuty(String cookDifficuty) {
 		this.cookDifficuty = cookDifficuty;
 	}
-
-	public String getCookTheme() {
+	public String getcookTheme() {
 		return cookTheme;
 	}
-
-	public void setCookTheme(String cookTheme) {
+	public void setcookTheme(String cookTheme) {
 		this.cookTheme = cookTheme;
 	}
-
-	public int getCookPrice() {
+	public int getcookPrice() {
 		return cookPrice;
 	}
-
-	public void setCookPrice(int cookPrice) {
+	public void setcookPrice(int cookPrice) {
 		this.cookPrice = cookPrice;
 	}
-
-	public String getCookBrief() {
+	public String getcookBrief() {
 		return cookBrief;
 	}
-
-	public void setCookBrief(String cookBrief) {
+	public void setcookBrief(String cookBrief) {
 		this.cookBrief = cookBrief;
 	}
-
 	public Date getStartTime() {
 		return startTime;
 	}
-
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-
 	public Date getEndTime() {
 		return endTime;
 	}
-
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
-	public Date getRegStartTime() {
-		return regStartTime;
+	public Date getAplstarTime() {
+		return aplstarTime;
 	}
-
-	public void setRegStartTime(Date regStartTime) {
-		this.regStartTime = regStartTime;
+	public void setAplstarTime(Date aplstarTime) {
+		this.aplstarTime = aplstarTime;
 	}
-
-	public Date getRegEndTime() {
-		return regEndTime;
+	public Date getAplendTime() {
+		return aplendTime;
 	}
-
-	public void setRegEndTime(Date regEndTime) {
-		this.regEndTime = regEndTime;
+	public void setAplendTime(Date aplendTime) {
+		this.aplendTime = aplendTime;
 	}
-
-	public String getCookLocation() {
+	public String getcookLocation() {
 		return cookLocation;
 	}
-
-	public void setCookLocation(String cookLocation) {
+	public void setcookLocation(String cookLocation) {
 		this.cookLocation = cookLocation;
 	}
-
-	public String getCertificate() {
-		return certificate;
+	public String getcookRegdate() {
+		return cookRegdate;
+	}
+	public void setcookRegdate(String cookRegdate) {
+		this.cookRegdate = cookRegdate;
+	}
+	public String getcookVideo() {
+		return cookVideo;
+	}
+	public void setcookVideo(String cookVideo) {
+		this.cookVideo = cookVideo;
+	}
+	public int getCookStock() {
+		return cookStock;
+	}
+	public void setCookStock(int cookStock) {
+		this.cookStock = cookStock;
+	}
+	@Override
+	public String toString() {
+		return "Cook [cookNo=" + cookNo + ", cookName=" + cookName + ", cookFilename=" + cookFilename + ", cookBrief="
+				+ cookBrief + ", cookDifficuty=" + cookDifficuty + ", cookPrice=" + cookPrice + ", cookTheme="
+				+ cookTheme + ", aplstarTime=" + aplstarTime + ", aplendTime=" + aplendTime + ", cookRecruit="
+				+ cookRecruit + ", startTime=" + startTime + ", endTime=" + endTime + ", cookLocation=" + cookLocation
+				+ ", cookRegdate=" + cookRegdate + ", cookVideo=" + cookVideo + ", cookStock=" + cookStock + "]";
 	}
 
-	public void setCertificate(String certificate) {
-		this.certificate = certificate;
-	}
+	
 
-	public String getCareer() {
-		return career;
-	}
 
-	public void setCareer(String career) {
-		this.career = career;
-	}
-
-	public String getCookShorts() {
-		return cookShorts;
-	}
-
-	public void setCookShorts(String cookShorts) {
-		this.cookShorts = cookShorts;
-	}
-
-	public String getCookRegDate() {
-		return cookRegDate;
-	}
-
-	public void setCookRegDate(String cookRegDate) {
-		this.cookRegDate = cookRegDate;
-	}
-
-	private String cookRegDate;
-
-	public Cook() {
-		// TODO Auto-generated constructor stub
-	}
 
 }

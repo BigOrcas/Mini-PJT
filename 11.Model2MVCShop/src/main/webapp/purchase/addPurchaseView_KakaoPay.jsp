@@ -100,7 +100,7 @@ $(function() {
 });	
 $(function() {
 	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-	$( "button.btn.btn-primary" ).on("click" , function() {
+	$( "button.btn.btn-warning" ).on("click" , function() {
 		console.log('장바구니');
 		fncAddWish();
 	});
@@ -354,18 +354,24 @@ function payment(data) {
 			<button type="button" class="kakao" id="kakao">결제하기</button>	
 		</div>
 		
-		<form method="post" action="/kakao/kakaoPay">
-		    <button>카카오페이</button>
-		</form>
+		
 		  
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <button type="button"  class="btn btn-primary"  >구&nbsp;매</button>
-		      <button type="button"  class="btn btn-primary"  >장바구니</button>
+		      <button type="button"  class="btn btn-warning"  >장바구니</button>
 			  <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
-		
-	
+			  <form method="post" action="/kakao/kakaoPay">
+		    <button>카카오페이</button>
+		</form>
+		 </div>
+		  </div>
+		  
+
+			<div class="text-left">
+			<button type="button" class="kakao" id="kakao">결제하기</button>	
+		</div>
  
 	
 </body>

@@ -150,7 +150,7 @@ div.thumbnail {
 			
 			
 			 
-			$( "p.like_btn" ).on("click" , function(){
+			$( "p.bi-heart" ).on("click" , function(){
 				var prodNo = $(this).attr("value");
 				var userId = $("input[name='userId']").val();
 				
@@ -165,18 +165,17 @@ div.thumbnail {
 			               alert("통신 에러");
 			            },
 			            success : function(heartCheck) {
+			            	
 			                
 			                    if(heartCheck == 0){
-			                    	alert("추천완료.");
-			                    	  $(this).removeClass('bi bi-heart like_btn');
-			                          $(this).addClass('bi-heart-fill like_btn');
+			                    	alert("좋아요♥");
+			                    	  $(this).attr('class','bi-heart-fill');
 			                          heartCheck++;
 			                    	location.reload();
 			                    }
 			                    else if (heartCheck == 1){
-			                     alert("추천취소");
-			                     $(this).removeClass('bi-heart-fill like_btn');
-			                     $(this).addClass('bi bi-heart like_btn');
+			                     alert("시러요!");
+			                     $(this).attr('class','bi-heart');
 			                     heartCheck--;
 			                    	location.reload();
 
@@ -336,6 +335,7 @@ div.thumbnail {
 
 <body>
 
+
 	
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
@@ -482,24 +482,23 @@ div.thumbnail {
           <input type="hidden" name="heartCheck" value="${heart.heartCheck}">
         <p><a href="/product/getProduct?menu=search&prodNo=${product.prodNo }" class="btn btn-default" role="button">상세정보</a> 
         <a href="/purchase/addPurchase?menu=search&&prodNo=${product.prodNo }" class="btn btn-default" role="button">구매</a> 
-         <p align="right" class="bi bi-heart like_btn" value="${product.prodNo}" name="heartCheck">  ${heart.heartCheck}    ${product.hearthit}</p>
+         <p align="right" class="bi-heart" value="${product.prodNo}" name="heartCheck">${heart.heartNo}    ${product.hearthit}</p>
                     	
         
             <script>
     
-    var heartCheck = $("input[name='heartCheck']").val();
-    $('p.like_btn').on('click',function(){
-        if(heartCheck==0){
-            $(this).removeClass('bi bi-heart like_btn');
-            $(this).addClass('bi-heart-fill');
-            heartCheck++;
-        }else if(heartCheck==1){
-            $(this).removeClass('bi-heart-fill');
-            $(this).addClass('bi bi-heart like_btn');
-            heartCheck--;
-        }
-        
-    });
+          
+            var p = 0;
+            $('p').on('click',function(){
+                if(p==0){
+                	 $(this).attr('class','bi-heart-fill');
+                    p++;
+                }else if(p==1){
+                	$(this).attr('class','bi-heart');
+                    p--;
+                }
+                
+            });
 
 </script>
           

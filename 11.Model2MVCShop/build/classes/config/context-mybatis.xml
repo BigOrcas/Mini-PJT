@@ -7,7 +7,15 @@
 				 http://www.springframework.org/schema/beans/spring-beans.xsd">
 				
 	<!-- ㅇ SqlSession 인스턴스를 생성하는 SqlSessionFactory 생성
-	      ㅇ Factory Pattern  적용 :: Spring 의 FactoryBean interface 구현 -->
+	      ㅇ Factory Pattern  적용 :: Spring 의 FactoryBean interface 구현 
+	      
+	      SqlSessionFactory는 데이터베이스와의 연결과 SQL의 실행에 대한 모든 것을 가진 가장 중요한 객체입니다!
+	      이 객체가 DataSource를 참조하여 MyBatis와 Mysql 서버를 연동시켜준다.
+		SqlSessionFactory를 생성해주는 SqlSessionFactoryBean 객체를 먼저 설정하여야 한다
+
+	      
+	      
+	      -->
 	<bean 	id="sqlSessionFactoryBean" 
 					class="org.mybatis.spring.SqlSessionFactoryBean" >
 		<property name="dataSource" ref="dataSource"/>
@@ -16,7 +24,13 @@
 	
 	<!--  ㅇ SqlSessionTeampate 인스턴스생성
 		   ㅇ Spring 과 연동시 사용하는 핵심 SqlSession 구현체
-		   ㅇ Spring 에서 제공한는 Transaction 처리에 구조화된 SqlSession 구현체	 -->
+		   ㅇ Spring 에서 제공한는 Transaction 처리에 구조화된 SqlSession 구현체	
+		   sqlSessionTemplate는 mybatis 쿼리문을 수행해주는 역할
+		   
+		   
+		   
+		   
+		    -->
 	<bean		id="sqlSessionTemplate"		
 					class="org.mybatis.spring.SqlSessionTemplate" >		
 		<constructor-arg ref="sqlSessionFactoryBean"/>
